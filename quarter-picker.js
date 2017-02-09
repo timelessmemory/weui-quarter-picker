@@ -2,8 +2,21 @@
 +function($){
 
 $.rawCitiesData = [];
-var quarters = ["第一季度", "第二季度", "第三季度", "第四季度"];
-var months = ["第一个月", "第二个月", "第三个月"];
+var quarters = ["全部", "第一季度", "第二季度", "第三季度", "第四季度"];
+var months = ["全部", "第一个月", "第二个月", "第三个月"];
+
+$.rawCitiesData.push({
+  "name" : "全部",
+  "code" : "0001",
+  "sub" : [{
+    "name" : "全部",
+    "code" : "00010",
+    "sub" : [{
+      "name" : "全部",
+      "code" : "000100"
+    }]
+  }]
+});
 
 for(var i = 2014; i <= new Date().getFullYear(); i++) {
   var tmpYear = {
@@ -13,6 +26,19 @@ for(var i = 2014; i <= new Date().getFullYear(); i++) {
   }
 
   for (var j = 0; j < quarters.length; j++) {
+    if (j == 0) {
+      var tmpQuarter = {
+        "name" : quarters[j],
+        "code" : i + "00" + j,
+        "sub" : [{
+          "name" : "全部",
+          "code" : i + "00" + j + "0",
+        }]
+      }
+      tmpYear.sub.push(tmpQuarter);
+      continue;
+    }
+
     var tmpQuarter = {
       "name" : quarters[j],
       "code" : i + "00" + j,
@@ -20,6 +46,7 @@ for(var i = 2014; i <= new Date().getFullYear(); i++) {
     }
 
     for (var k = 0; k < months.length; k++) {
+
       var tmpMonth = {
         "name" : months[k],
         "code" : i + "00" + j + k
@@ -231,7 +258,9 @@ for(var i = 2014; i <= new Date().getFullYear(); i++) {
       if(!this) return;
       var p = $.extend({}, params, config);
       var val = $(this).val();
-      if (!val) val = '2017年 第一季度 第一个月';
+
+      //当input值为空时选择器默认选中的内容
+      if (!val) val = '全部 全部 全部';
       currentProvince = val.split(" ")[0];
       currentCity = val.split(" ")[1];
       currentDistrict= val.split(" ")[2];
