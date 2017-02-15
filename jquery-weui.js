@@ -4022,6 +4022,15 @@ Device/OS Detection
               p.params.onChange(p, p.value, p.displayValue);
           }
           if (p.input && p.input.length > 0) {
+              //rebind
+              $(document).off("click", ".close-picker");
+              $(document).on("click", ".close-picker", function() {
+                var pickerToClose = $('.weui-picker-modal.weui-picker-modal-visible');
+                if (pickerToClose.length > 0) {
+                  $(p.input).val(p.params.formatValue ? p.params.formatValue(p, p.value, p.displayValue) : p.value.join(' '));
+                  $.closePicker(pickerToClose);
+                }
+              });
               // $(p.input).val(p.params.formatValue ? p.params.formatValue(p, p.value, p.displayValue) : p.value.join(' '));
               $(p.input).trigger('change');
           }
@@ -4529,14 +4538,6 @@ Device/OS Detection
       if (p.inline) {
           p.open();
       }
-
-      $(document).on("click", ".close-picker", function() {
-        var pickerToClose = $('.weui-picker-modal.weui-picker-modal-visible');
-        if (pickerToClose.length > 0) {
-          $(p.input).val(p.params.formatValue ? p.params.formatValue(p, p.value, p.displayValue) : p.value.join(' '));
-          $.closePicker(pickerToClose);
-        }
-      });
 
       return p;
   };
