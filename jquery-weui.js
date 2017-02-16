@@ -4027,7 +4027,9 @@ Device/OS Detection
               $(document).on("click", ".close-picker", function() {
                 var pickerToClose = $('.weui-picker-modal.weui-picker-modal-visible');
                 if (pickerToClose.length > 0) {
-                  $(p.input).val(p.params.formatValue ? p.params.formatValue(p, p.value, p.displayValue) : p.value.join(' '));
+                  var inputVal = p.params.formatValue ? p.params.formatValue(p, p.value, p.displayValue) : p.value.join(' ');
+                  if (inputVal == "全部 全部") inputVal = "全部";
+                  $(p.input).val(inputVal);
                   $.closePicker(pickerToClose);
                 }
               });
@@ -4499,7 +4501,9 @@ Device/OS Detection
                   }
               }
               else {
-                  var tmpCode = p.params.toCode(p.params.rawCitiesData, p.input.val());
+                  var showBack = p.input.val();
+                  if (showBack == "全部") showBack = '全部 全部';
+                  var tmpCode = p.params.toCode(p.params.rawCitiesData, showBack);
                   p.setValue(tmpCode, 0);
                   // if (p.value) p.setValue(p.value, 0);
               }

@@ -7,16 +7,16 @@
   "use strict";
 
   var rawCitiesData = [];
-  var quarters = ["全部", "第一季度", "第二季度", "第三季度", "第四季度"];
+  var quarters = ["第一季度", "第二季度", "第三季度", "第四季度"];
 
-  rawCitiesData.push({
-    "name" : "全部",
-    "code" : "0001",
-    "sub" : [{
-      "name" : "全部",
-      "code" : "00010"
-    }]
-  });
+  // rawCitiesData.push({
+  //   "name" : "全部",
+  //   "code" : "0001",
+  //   "sub" : [{
+  //     "name" : "全部",
+  //     "code" : "00010"
+  //   }]
+  // });
 
   for(var i = 2014; i <= new Date().getFullYear(); i++) {
     var tmpYear = {
@@ -118,7 +118,7 @@
     return [p.code, c.code];
   }
 
-  $.fn.quarterPicker = function(params) {
+  $.fn.quarterPickerNoAll = function(params) {
     params = $.extend({}, defaults, params);
 
     return this.each(function() {
@@ -231,8 +231,7 @@
       var val = $(this).val();
 
       //当input值为空时选择器默认选中的内容
-      if (!val) val = '全部 全部';
-      if (val == "全部") val = '全部 全部';
+      if (!val) val = new Date().getFullYear() + '年 ' + quarters[0];
       currentProvince = val.split(" ")[0];
       currentCity = val.split(" ")[1];
       currentDistrict= val.split(" ")[2];
@@ -275,7 +274,7 @@
     });
   };
 
-  defaults = $.fn.quarterPicker.prototype.defaults = {
+  defaults = $.fn.quarterPickerNoAll.prototype.defaults = {
     showDistrict: false
   };
 

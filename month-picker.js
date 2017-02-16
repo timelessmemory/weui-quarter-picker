@@ -1,5 +1,3 @@
-// jshint ignore: end
-
 /* global $:true */
 /* jshint unused:false*/
 
@@ -7,7 +5,7 @@
   "use strict";
 
   var rawCitiesData = [];
-  var quarters = ["全部", "第一季度", "第二季度", "第三季度", "第四季度"];
+  var months = ["全部", "第一个月", "第二个月", "第三个月", "第四个月", "第五个月", "第六个月", "第七个月", "第八个月", "第九个月", "第十个月", "第十一个月", "第十二个月"];
 
   rawCitiesData.push({
     "name" : "全部",
@@ -25,10 +23,10 @@
       "sub" : []
     }
 
-    for (var j = 0; j < quarters.length; j++) {
+    for (var j = 0; j < months.length; j++) {
 
       var tmpQuarter = {
-        "name" : quarters[j],
+        "name" : months[j],
         "code" : i + "00" + j,
         "sub" : []
       }
@@ -118,7 +116,7 @@
     return [p.code, c.code];
   }
 
-  $.fn.quarterPicker = function(params) {
+  $.fn.monthPicker = function(params) {
     params = $.extend({}, defaults, params);
 
     return this.each(function() {
@@ -232,7 +230,6 @@
 
       //当input值为空时选择器默认选中的内容
       if (!val) val = '全部 全部';
-      if (val == "全部") val = '全部 全部';
       currentProvince = val.split(" ")[0];
       currentCity = val.split(" ")[1];
       currentDistrict= val.split(" ")[2];
@@ -275,7 +272,7 @@
     });
   };
 
-  defaults = $.fn.quarterPicker.prototype.defaults = {
+  defaults = $.fn.monthPicker.prototype.defaults = {
     showDistrict: false
   };
 
