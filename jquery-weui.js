@@ -3786,16 +3786,16 @@ if (typeof define === 'function' && define.amd) {
 
   $.showTab = showTab;
 
-  $(document).on("click", ".weui-navbar__item, .weui-tabbar__item", function(e) {
-    var $a = $(e.currentTarget);
-    var href = $a.attr("href");
-    if($a.hasClass(ITEM_ON)) return;
-    if(!/^#/.test(href)) return;
+  // $(document).on("click", ".weui-navbar__item, .weui-tabbar__item", function(e) {
+  //   var $a = $(e.currentTarget);
+  //   var href = $a.attr("href");
+  //   if($a.hasClass(ITEM_ON)) return;
+  //   if(!/^#/.test(href)) return;
 
-    e.preventDefault();
+  //   e.preventDefault();
 
-    showTab($a);
-  });
+  //   showTab($a);
+  // });
 
 }($);
 
@@ -3806,12 +3806,12 @@ if (typeof define === 'function' && define.amd) {
   $(document).on("click touchstart", ".weui-search-bar__label", function(e) {
     $(e.target).parents(".weui-search-bar").addClass("weui-search-bar_focusing").find('input').focus();
   })
-  /*
+
   .on("blur", ".weui-search-bar__input", function(e) {
     var $input = $(e.target);
     if(!$input.val()) $input.parents(".weui-search-bar").removeClass("weui-search-bar_focusing");
   })
-  */
+
   .on("click", ".weui-search-bar__cancel-btn", function(e) {
     var $input = $(e.target).parents(".weui-search-bar").removeClass("weui-search-bar_focusing").find(".weui-search-bar__input").val("").blur();
   })
@@ -4030,6 +4030,9 @@ Device/OS Detection
                   var inputVal = p.params.formatValue ? p.params.formatValue(p, p.value, p.displayValue) : p.value.join(' ');
                   if (inputVal == "全部 全部") inputVal = "全部";
                   $(p.input).val(inputVal);
+                  if (p.params.changeEvent) {
+                    p.params.changeEvent(inputVal);
+                  }
                   $.closePicker(pickerToClose);
                 }
               });
