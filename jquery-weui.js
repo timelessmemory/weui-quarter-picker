@@ -3729,9 +3729,14 @@ if (typeof define === 'function' && define.amd) {
   Infinite.prototype.scroll = function() {
     var container = this.container;
     var offset = container.scrollHeight() - ($(window).height() + container.scrollTop());
-    if(offset <= this.distance) {
+    var pianyiliang = 0;
+    if (this.beforeTop) {
+      pianyiliang = container.scrollTop() - this.beforeTop;
+    }
+    if(offset <= this.distance && pianyiliang >= 0) {
       container.trigger("infinite");
     }
+    this.beforeTop = container.scrollTop();
   }
 
   Infinite.prototype.attachEvents = function(off) {
