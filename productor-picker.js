@@ -1,35 +1,40 @@
 + function($) {
   "use strict";
 
-  var productorsData = [];
-  var productor = ["傅佳", "大永", "平衡", "明光", "康维", "索尼"];
+  $.fn.productorPicker = function(params) {
 
-  productorsData.push({
-    "name" : "全部",
-    "code" : "0001"
-  });
-
-  for(var i = 0; i < productor.length; i++) {
-    var tmpPdr = {
-      "name" : productor[i],
-      "code" : i + "00"
+    var productorsData = [];
+    var productor = ["傅佳", "大永", "平衡", "明光", "康维", "索尼"];
+    if (params.options) {
+      productor = params.options;
     }
-    productorsData.push(tmpPdr);
-  }
 
-  var defaults;
-  var raw = productorsData;
-
-  var toCode = function(raw, val) {
-    var p;
-    raw.map(function (t) {
-      if (t.name === val) p = t;
+    productorsData.push({
+      "name" : "全部",
+      "code" : "0001"
     });
 
-    return [p.code];
-  }
+    for(var i = 0; i < productor.length; i++) {
+      var tmpPdr = {
+        "name" : productor[i],
+        "code" : i + "00"
+      }
+      productorsData.push(tmpPdr);
+    }
 
-  $.fn.productorPicker = function(params) {
+    var defaults;
+    var raw = productorsData;
+
+    var toCode = function(raw, val) {
+      if (val == "全部 全部") val = "全部";
+      var p;
+      raw.map(function (t) {
+        if (t.name === val) p = t;
+      });
+
+      return [p.code];
+    }
+
     params = $.extend({}, defaults, params);
 
     return this.each(function() {
@@ -47,6 +52,7 @@
       var cols = [
         {
           displayValues: provincesName,
+          textAlign: 'center',
           values: provincesCode,
           cssClass: "col-province"
         }
