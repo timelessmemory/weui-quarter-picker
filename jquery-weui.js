@@ -4435,6 +4435,8 @@ Device/OS Detection
           if (p.input.length > 0) {
               if (p.params.inputReadOnly) p.input.prop('readOnly', true);
               if (!p.inline) {
+                  //mario:reset options to prevent multi-trigger
+                  p.input.off('click');
                   p.input.on('click', openOnInput);
               }
               if (p.params.inputReadOnly) {
@@ -4622,6 +4624,17 @@ Device/OS Detection
 
       var picker = $this.data("picker");
       if(!picker) {
+        params = params || {};
+        var inputValue = $this.val();
+        if(params.value === undefined && inputValue !== "") {
+          params.value = params.cols.length > 1 ? inputValue.split(" ") : [inputValue];
+        }
+        var p = $.extend({input: this}, params);
+        picker = new Picker(p);
+        $this.data("picker", picker);
+        //mario:reset options to prevent multi-trigger
+      } else {
+        $this.removeData("picker");
         params = params || {};
         var inputValue = $this.val();
         if(params.value === undefined && inputValue !== "") {
