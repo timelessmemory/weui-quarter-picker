@@ -7,7 +7,7 @@
   "use strict";
 
   var rawCitiesData = [];
-  var quarters = ["第一季度", "第二季度", "第三季度", "第四季度"];
+  var quarters = ["第1季度", "第2季度", "第3季度", "第4季度"];
 
   // rawCitiesData.push({
   //   "name" : "全部",
@@ -18,7 +18,7 @@
   //   }]
   // });
 
-  for(var i = 2014; i <= new Date().getFullYear(); i++) {
+  for(var i = 2017; i <= new Date().getFullYear(); i++) {
     var tmpYear = {
       "name" : i + "年",
       "code" : i + "00",

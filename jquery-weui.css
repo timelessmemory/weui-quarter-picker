@@ -71,24 +71,24 @@ label > * {
   pointer-events: none;
 }
 html {
-  font-size: 20px;
+  font-size: 48.5% !important;
 }
 body {
   font-size: 16px;
 }
-@media only screen and (min-width: 400px) {
+@media only screen and (min-width: 374px) {
   html {
-    font-size: 21.33333333px !important;
+    font-size: 60% !important;
   }
 }
 @media only screen and (min-width: 414px) {
   html {
-    font-size: 22.08px !important;
+    font-size: 62.5% !important;
   }
 }
 @media only screen and (min-width: 480px) {
   html {
-    font-size: 25.6px !important;
+    font-size: 92.5% !important;
   }
 }
 .weui_navbar {
@@ -632,8 +632,8 @@ body {
   -webkit-transition-duration: .2s;
           transition-duration: .2s;
   opacity: 0;
-  -webkit-transform: scale(0.9) translate(-50%, -50%);
-          transform: scale(0.9) translate(-50%, -50%);
+  -webkit-transform: scale(1) translate(-50%, -50%);
+          transform: scale(1) translate(-50%, -50%);
   -webkit-transform-origin: 0 0;
           transform-origin: 0 0;
   visibility: hidden;
@@ -730,8 +730,8 @@ body {
   transition: transform .4s, -webkit-transform .4s;
 }
 .weui-pull-to-refresh.refreshing {
-  -webkit-transform: translate3d(0, 50px, 0);
-          transform: translate3d(0, 50px, 0);
+  -webkit-transform: translate3d(0, 30px, 0);
+          transform: translate3d(0, 30px, 0);
 }
 .weui-pull-to-refresh.touching {
   -webkit-transition-duration: 0s;
@@ -830,11 +830,11 @@ body {
   color: #04BE02;
 }
 .weui-navbar__item {
-  color: #888;
+  color: black;
 }
 .weui-navbar__item.weui-bar__item--on {
-  color: #666;
-  background-color: #f1f1f1;
+  color: black;
+  /*background-color: #f1f1f1;*/
 }
 .weui-tab__bd {
   box-sizing: border-box;

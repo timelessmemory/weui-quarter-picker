@@ -3221,6 +3221,8 @@ if (typeof define === 'function' && define.amd) {
   $.modal = function(params, onOpen) {
     params = $.extend({}, defaults, params);
 
+    var addClassName = params.buttons.length == 2 ? "weui-confirm" : "";
+    addClassName = params.className == "" ? addClassName : params.className;
 
     var buttons = params.buttons;
 
@@ -3228,7 +3230,7 @@ if (typeof define === 'function' && define.amd) {
       return '<a href="javascript:;" class="weui-dialog__btn ' + (d.className || "") + '">' + d.text + '</a>';
     }).join("");
 
-    var tpl = '<div class="weui-dialog">' +
+    var tpl = '<div class="weui-dialog ' + addClassName + '">' +
                 '<div class="weui-dialog__hd"><strong class="weui-dialog__title">' + params.title + '</strong></div>' +
                 ( params.text ? '<div class="weui-dialog__bd">'+params.text+'</div>' : '')+
                 '<div class="weui-dialog__ft">' + buttonsHtml + '</div>' +
@@ -3462,10 +3464,10 @@ if (typeof define === 'function' && define.amd) {
   defaults = $.modal.prototype.defaults = {
     title: "提示",
     text: undefined,
-    buttonOK: "确定",
+    buttonOK: "確定",
     buttonCancel: "取消",
     buttons: [{
-      text: "确定",
+      text: "確定",
       className: "primary"
     }],
     autoClose: true //点击按钮自动关闭对话框，如果你不希望点击按钮就关闭对话框，可以把这个设置为false
@@ -3810,6 +3812,7 @@ if (typeof define === 'function' && define.amd) {
 
   $(document).on("click touchstart", ".weui-search-bar__label", function(e) {
     $(e.target).parents(".weui-search-bar").addClass("weui-search-bar_focusing").find('input').focus();
+    e.preventDefault();
   })
 
   .on("blur", ".weui-search-bar__input", function(e) {
@@ -3821,7 +3824,8 @@ if (typeof define === 'function' && define.amd) {
     var $input = $(e.target).parents(".weui-search-bar").removeClass("weui-search-bar_focusing").find(".weui-search-bar__input").val("").blur();
   })
   .on("click", ".weui-icon-clear", function(e) {
-    var $input = $(e.target).parents(".weui-search-bar").find(".weui-search-bar__input").val("").focus();
+    var $input = $(e.target).parents(".weui-search-bar").find(".weui-search-bar__input")
+    if($input.val()) $input.val("").focus();
   });
 
 }($);
@@ -3952,10 +3956,10 @@ Device/OS Detection
           inputReadOnly: true,
           toolbar: true,
           toolbarCloseText: '完成',
-          title: '请选择',
+          title: '請選擇',
           toolbarTemplate: '<div class="toolbar">\
           <div class="toolbar-inner">\
-          <a href="javascript:;" class="cancel-picker">取消</a>\
+          <a href="javascript:;" class="cancel-picker">關閉</a>\
           <a href="javascript:;" class="picker-button close-picker">{{closeText}}</a>\
           <h1 class="title">{{title}}</h1>\
           </div>\
@@ -4034,6 +4038,7 @@ Device/OS Detection
                 if (pickerToClose.length > 0) {
                   var inputVal = p.params.formatValue ? p.params.formatValue(p, p.value, p.displayValue) : p.value.join(' ');
                   if (inputVal == "全部 全部") inputVal = "全部";
+                  if (inputVal == "請選擇 請選擇") inputVal = "請選擇";
                   $(p.input).val(inputVal);
                   if (p.params.changeEvent) {
                     p.params.changeEvent(inputVal);
@@ -4292,7 +4297,7 @@ Device/OS Detection
               if (!p.params.freeMode) newTranslate = -activeIndex * itemHeight + maxTranslate;
 
               // Transform wrapper
-              col.wrapper.transform('translate3d(0,' + (parseInt(newTranslate,10)) + 'px,0)');
+              col.wrapper.transform('translate3d(0,' + (parseInt(newTranslate,10) - 2) + 'px,0)');
 
               // Update items
               col.updateItems(activeIndex, newTranslate, '', true);
@@ -4513,6 +4518,7 @@ Device/OS Detection
               else {
                   var showBack = p.input.val();
                   if (showBack == "全部") showBack = '全部 全部';
+                  if (showBack == "請選擇") showBack = '請選擇 請選擇';
                   var tmpCode = p.params.toCode(p.params.rawCitiesData, showBack);
                   p.setValue(tmpCode, 0);
                   // if (p.value) p.setValue(p.value, 0);

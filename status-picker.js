@@ -1,26 +1,32 @@
 + function($) {
   "use strict";
 
-  $.fn.productorPicker = function(params) {
+  $.fn.statusPicker = function(params) {
 
-    var productorsData = [];
-    var productor = [];
+    var statusData = [];
+    var status = ["已核可", "未核可"];
     if (params.options) {
-      productor = params.options;
+      status = params.options;
     }
 
-    for(var i = 0; i < productor.length; i++) {
+    statusData.push({
+      "name" : "全部",
+      "code" : "0001"
+    });
+
+    for(var i = 0; i < status.length; i++) {
       var tmpPdr = {
-        "name" : productor[i],
+        "name" : status[i],
         "code" : i + "00"
       }
-      productorsData.push(tmpPdr);
+      statusData.push(tmpPdr);
     }
 
     var defaults;
-    var raw = productorsData;
+    var raw = statusData;
 
     var toCode = function(raw, val) {
+      if (val == "全部 全部") val = "全部";
       var p;
       raw.map(function (t) {
         if (t.name === val) p = t;
@@ -52,14 +58,9 @@
         }
       ];
 
-      var addClass = "city-picker ";
-      if (params.cssClass) {
-        addClass += params.cssClass
-      }
-
       var config = {
 
-        cssClass: addClass,
+        cssClass: "city-picker",
         rotateEffect: false,
         formatValue: function (p, values, displayValues) {
           return displayValues.join(' ');
@@ -79,7 +80,7 @@
           }
         },
         cols: cols,
-        rawCitiesData : productorsData,
+        rawCitiesData : statusData,
         toCode : toCode
       };
 
@@ -88,6 +89,8 @@
       var p = $.extend({}, params, config);
 
       var val = $(this).val();
+
+      if (!val) val = '全部';
 
       p.value = toCode(raw, val);
 

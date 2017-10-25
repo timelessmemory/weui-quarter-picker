@@ -5,18 +5,18 @@
   "use strict";
 
   var rawCitiesData = [];
-  var months = ["全部", "第一个月", "第二个月", "第三个月", "第四个月", "第五个月", "第六个月", "第七个月", "第八个月", "第九个月", "第十个月", "第十一个月", "第十二个月"];
+  var months = ["請選擇", "1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"];
 
   rawCitiesData.push({
-    "name" : "全部",
+    "name" : "請選擇",
     "code" : "0001",
     "sub" : [{
-      "name" : "全部",
+      "name" : "請選擇",
       "code" : "00010"
     }]
   });
 
-  for(var i = 2014; i <= new Date().getFullYear(); i++) {
+  for(var i = 2017; i <= new Date().getFullYear(); i++) {
     var tmpYear = {
       "name" : i + "年",
       "code" : i + "00",
@@ -75,6 +75,7 @@
   };
 
   var parseInitValue = function (val) {
+    if (val == '請選擇') val = "請選擇 請選擇"
     var p = raw[0], c, d;
     var tokens = val.split(' ');
     raw.map(function (t) {
@@ -229,7 +230,7 @@
       var val = $(this).val();
 
       //当input值为空时选择器默认选中的内容
-      if (!val) val = '全部 全部';
+      if (!val) val = '請選擇 請選擇';
       currentProvince = val.split(" ")[0];
       currentCity = val.split(" ")[1];
       currentDistrict= val.split(" ")[2];

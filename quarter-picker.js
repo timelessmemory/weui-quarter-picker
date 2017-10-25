@@ -7,7 +7,7 @@
   "use strict";
 
   var rawCitiesData = [];
-  var quarters = ["全部", "第一季度", "第二季度", "第三季度", "第四季度"];
+  var quarters = ["全部", "第1季度", "第2季度", "第3季度", "第4季度"];
 
   rawCitiesData.push({
     "name" : "全部",
@@ -18,7 +18,7 @@
     }]
   });
 
-  for(var i = 2014; i <= new Date().getFullYear(); i++) {
+  for(var i = 2017; i <= new Date().getFullYear(); i++) {
     var tmpYear = {
       "name" : i + "年",
       "code" : i + "00",
@@ -231,7 +231,11 @@
       var val = $(this).val();
 
       //当input值为空时选择器默认选中的内容
-      if (!val) val = '全部 全部';
+      var year = new Date().getFullYear()
+      var month = new Date().getMonth() + 1
+      var quarter = month % 3 === 0 ? month / 3 : Math.floor(month / 3) + 1;
+
+      if (!val) val = year + '年' + ' ' + '第' + quarter + '季度';
       if (val == "全部") val = '全部 全部';
       currentProvince = val.split(" ")[0];
       currentCity = val.split(" ")[1];
